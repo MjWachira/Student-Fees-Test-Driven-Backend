@@ -1,0 +1,4 @@
+CREATE OR ALTER PROCEDURE allStudents
+AS
+BEGIN SELECT * FROM studentsTable
+END

@@ -1,0 +1,12 @@
+POST http://localhost:4400/fee
+Content-Type: application/json
+
+{
+    "student_name": "John Wachira",     
+    "class_name": "4w",
+    "fee_balance":"Ksh 25000",
+    "deadline": "2023/7/25"
+}
+
+###
+GET  http://localhost:4400/fee
