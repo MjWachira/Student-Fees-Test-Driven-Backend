@@ -45,8 +45,70 @@ const AllStudents = async(req, res)=>{
         return res.json({error})
     }
 }
+const OneStudent=  async(req, res)=>{
+    try{
+        const id = req.params.id
+        const pool = await mssql.connect(sqlConfig)
+        const student = (await pool.request().input('id', id).execute('getOneStudent')).recordset
+        res.json({
+            student:student
+        })
+    }catch(error){
+        return res.json({error})
+    }
+}
+const updateStudents = async (req, res)=>{
+    try {
+        const id = v4()
+        const { student_name, class_name, fee_balance, deadline} = req.body
+        const pool = await mssql.connect(sqlConfig)
+        const result = await pool.request()
+        .input('id', mssql.VarChar, id)
+        .input('student_name', mssql.VarChar, student_name)
+        .input('class_name', mssql.VarChar, class_name)
+        .input('fee_balance', mssql.VarChar, fee_balance)
+        .input('deadline', mssql.Date, deadline)
+        .execute('updateStudent')
+        console.log(result)
 
+        if(result.rowsAffected == 1){
+        return res.json({
+            message: "student updated successfully"
+        
+        })  
+        }else{
+            return res.json({message: "update failed"})
+        }   
+    } catch(error){
+        return res.json({error})
+    }
+}
+const deleteStudent =async(req, res)=>{
+    try{
+
+        const id = req.params.id
+        const pool = await mssql.connect(sqlConfig)
+        const result = await pool.request()
+        .input('id', id)
+        .execute('deleteStudent')
+        if(result.rowsAffected == 1){
+            res.json({
+                    message: 'student deleted successfully'
+            })
+        }else{
+            res.json({
+                message: 'student not found'
+        })
+        }
+        
+    }catch(error){
+        return res.json({Error:error})
+    }
+}
 module.exports={
     AddStudents,
-    AllStudents
+    AllStudents,
+    OneStudent,
+    updateStudents,
+    deleteStudent
 }

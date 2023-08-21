@@ -10,3 +10,20 @@ Content-Type: application/json
 
 ###
 GET  http://localhost:4400/fee
+
+####
+GET  http://localhost:4400/fee/9985da7f-0e04-4523-9bbc-fc56f8d45013
+
+###
+PUT  http://localhost:4400/fee/9985da7f-0e04-4523-9bbc-fc56f8d45013
+Content-Type: application/json
+
+{
+    "student_name": "Johnny Wachira",     
+    "class_name": "4w",
+    "fee_balance":"Ksh 25000",
+    "deadline": "2023/7/25"
+}
+
+###
+DELETE   http://localhost:4400/fee/9985da7f-0e04-4523-9bbc-fc56f8d45013
